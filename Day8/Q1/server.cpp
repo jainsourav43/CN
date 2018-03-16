@@ -19,8 +19,7 @@ int main()
 	struct sockaddr_in client_address;
 	int addrlen=0;
 	int no_of_client=10;
-	int sfd = ..
-	socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+	int sfd = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
 	if(sfd==-1)
 	{
 		cout<<"Error";
@@ -41,13 +40,18 @@ int main()
 		cout<<"Error";
 		exit(1);
 	}
+	int fd2;
 	for(; ; )
 	{
 		int nsfd = accept(sfd,(struct sockaddr*) &addrport,(socklen_t *)&addrlen);
+
 	    char *ip  = inet_ntoa(addrport.sin_addr);
 		cout<<"ip = "<<ip<<endl; 
 		//dup2(nsfd,0);
+	//	shutdown(nsfd,SHUT_RDWR);
+	    cout<<"nsfd= "<<nsfd<<endl;
 		int c=fork();
+		dup2(nsfd,fd2);
 		if(c>0)
 		{
 			close(nsfd);
@@ -57,9 +61,9 @@ int main()
 			close(sfd);
 			char buffer[100];
 			//dup2(0,nsfd);
-			read(nsfd,buffer,100);
+			read(fd2,buffer,100);
 			cout<<"Message from Client = "<<buffer<<endl;
-			send(nsfd,"Bye",3,0);
+			send(fd2,"Bye",3,0);
 			cout<<"Message sent from server\n";
 			break;
 		}
