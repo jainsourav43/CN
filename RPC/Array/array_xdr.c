@@ -8,11 +8,21 @@
 bool_t
 xdr_Array (XDR *xdrs, Array *objp)
 {
-	register int32_t *buf;
+	/*register int32_t *buf;
 
 	 if (!xdr_pointer (xdrs, (char **)&objp->a, sizeof (int), (xdrproc_t) xdr_int))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->size))
 		 return FALSE;
-	return TRUE;
+	return TRUE;*/
+	
+	return xdr_array(
+					xdrs,
+					(char**) (&(objp->a)),
+					&(objp->size),
+					200,
+					sizeof(int),
+					(xdrproc_t)xdr_int);
+	
+	
 }

@@ -11,6 +11,6 @@ struct lists{
 
 program LINKEDLIST_PROG{
 	version LINKEDLIST_VERS{
-		void addlink(lists)=1;
+		node addlink(lists)=1;
 	}=1;
 }=0x23451111;

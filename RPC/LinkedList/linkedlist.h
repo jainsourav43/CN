@@ -31,14 +31,14 @@ typedef struct lists lists;
 
 #if defined(__STDC__) || defined(__cplusplus)
 #define addlink 1
-extern  void * addlink_1(lists *, CLIENT *);
-extern  void * addlink_1_svc(lists *, struct svc_req *);
+extern  node * addlink_1(lists *, CLIENT *);
+extern  node * addlink_1_svc(lists *, struct svc_req *);
 extern int linkedlist_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
 #define addlink 1
-extern  void * addlink_1();
-extern  void * addlink_1_svc();
+extern  node * addlink_1();
+extern  node * addlink_1_svc();
 extern int linkedlist_prog_1_freeresult ();
 #endif /* K&R C */
 

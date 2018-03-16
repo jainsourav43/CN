@@ -11,7 +11,7 @@ void
 linkedlist_prog_1(char *host,lists list)
 {
 	CLIENT *clnt;
-	void  *result_1;
+	node  *result_1;
 	lists  addlink_1_arg=list;
 
 #ifndef	DEBUG
@@ -23,12 +23,12 @@ linkedlist_prog_1(char *host,lists list)
 #endif	/* DEBUG */
 
 	result_1 = addlink_1(&addlink_1_arg, clnt);
-	if (result_1 == (void *) NULL) {
+	if (result_1 == (node *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 	else
 	{
-		node* p =(node*)result_1;
+		node* p =result_1;
 		while(p!=NULL)
 		{
 			printf("p->data %d \n",p->data);
@@ -57,7 +57,13 @@ main (int argc, char *argv[])
 	temp1=link1;
 	temp2=link2;
 	int n=atoi(argv[2]);
+	printf("n= %d\n",n);
 	int i;
+	if(argc<2*n+3)
+	{
+		printf ("Error Provide proper Arguments \n");
+		exit (1);
+	}
 	for(i=0;i<n;i++)
 	{
 		link1->next=(node*)malloc(sizeof(node));

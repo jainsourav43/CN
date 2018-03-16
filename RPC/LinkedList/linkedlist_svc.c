@@ -33,7 +33,7 @@ linkedlist_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 
 	case addlink:
 		_xdr_argument = (xdrproc_t) xdr_lists;
-		_xdr_result = (xdrproc_t) xdr_void;
+		_xdr_result = (xdrproc_t) xdr_node;
 		local = (char *(*)(char *, struct svc_req *)) addlink_1_svc;
 		break;
 

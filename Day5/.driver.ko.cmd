@@ -1,0 +1,1 @@
+cmd_/home/sourav/Desktop/CN/Day5/driver.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/sourav/Desktop/CN/Day5/driver.ko /home/sourav/Desktop/CN/Day5/driver.o /home/sourav/Desktop/CN/Day5/driver.mod.o ;  true
