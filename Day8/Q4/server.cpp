@@ -55,23 +55,25 @@ int main()
 			exit(1);
 		}
 	}
-	fd_set rfd[noofPort];
+	fd_set rfd;
 	struct timeval tv;
-	tv.tv_sec = 2;
+	tv.tv_sec = 10;
 	tv.tv_usec =100;
-	for(i=0;i<noofPort;i++)
-	{
-		FD_SET(sfd[i],&rfd[i]);
-	}
+	
 	while(1)
 	{
-		int retval = select(30,rfd,NULL,NULL,&tv);
-		cout<<"retval"<<retval<<endl;
+		for(i=0;i<noofPort;i++)
+		{
+			FD_SET(sfd[i],&rfd);
+		}
+		int retval = select(30,&rfd,NULL,NULL,&tv);
+		//cout<<"retval"<<retval<<endl;
 		int child=0;
+		if(retval>0){
 		for(i=0;i<noofPort;i++)
 		{
 			cout<<"Before i  ="<<i<<endl; 
-			if(FD_ISSET(sfd[i],&rfd[i]))
+			if(FD_ISSET(sfd[i],&rfd))
 			{	
 				cout<<"JUST I = "<<i <<endl;
 				int nsfd = accept(sfd[i],(struct sockaddr*) &addrport,(socklen_t *)&addrlen);
@@ -82,6 +84,7 @@ int main()
 		}
 		if(child==1)
 		break;
+		}
 	}
 	
 	

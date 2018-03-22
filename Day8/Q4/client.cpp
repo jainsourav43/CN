@@ -44,6 +44,7 @@ int main()
 		char buffer[100];
 		recv(csfd,buffer,100,0);
 		cout<<"Message recieved from server  = "<<buffer<<endl;
+		break;
 		}
 	return 0;
 	

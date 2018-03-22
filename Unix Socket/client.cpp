@@ -56,8 +56,8 @@ void handler1(int sig)
 
 void handler2(int sig)
 {
-	cout<<"Inside Handler 2\n";
-      int sockfd;
+	   cout<<"Inside Handler 2\n";
+       int sockfd;
 	   sockaddr_un cliaddr,servaddr;
 	   sockfd = socket(AF_UNIX,SOCK_STREAM,0);
 	   cout<<"Sockfd = "<<sockfd<<endl;
@@ -139,7 +139,7 @@ void getPassfd()
       }
       
     	sleep(5);
-      	int sock_temp;
+       int sock_temp;
 	   sockaddr_un cliaddr,servaddr;
 	   sock_temp = socket(AF_UNIX,SOCK_STREAM,0);
 	   bzero(&servaddr,sizeof(servaddr));
