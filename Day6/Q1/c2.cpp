@@ -20,14 +20,14 @@ int main()
 	char *fifo3 = "/tmp/fifo3";
 	int fd1 = open(fifo1,O_WRONLY);
 	int fd2 = open(fifo2,O_WRONLY);
-	int fd3  = open(fifo3,O_RDONLY);
+
 	while(1)
 	{
 		cout<<"Enter the Type of Service you want\n";
 		cin>>tos;
 		if(tos==1)
 		{
-			cout<<"fd1,fd2,fd3 = "<<fd1<<"  "<<fd2<<"  "<<fd3<<endl;
+			cout<<"fd1,fd2,fd3 = "<<fd1<<"  "<<fd2<<"  "<<endl;
 			char buf1[2];
 			cout<<"Enter the Service \n";
 			cin>>buf1;
@@ -35,6 +35,7 @@ int main()
 		}
 		else if(tos=2)
 		{
+			int fd3  = open(fifo3,O_RDONLY);
 			cout<<"fd1,fd2,fd3 = "<<fd1<<"  "<<fd2<<"  "<<fd3<<endl;
 			cout<<"Enter the Service \n";
 			char buf1[2];

@@ -40,7 +40,7 @@ int main(int argc, char const *argv[])
 		
 	while(1)
 	{
-		//cout<<"HI\n";
+
 		char buffer[10];
 		for(int i=0;i<3;i++) {  pfd[i].events = POLLIN;}
 		poll(pfd,3,timeout);

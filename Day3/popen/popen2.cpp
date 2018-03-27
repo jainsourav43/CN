@@ -11,6 +11,7 @@ int main(int argc, char  *argv[])
 {
 	char s[50];
 	fputs("I love you",stdout);
+	fputs("Wanna Hangout",stdout);
 	//cout<<strlen(s)<<endl;
 	//cout<<s<<endl;
 	return 0;

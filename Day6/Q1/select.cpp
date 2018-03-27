@@ -37,25 +37,27 @@ int main()
 	cout<<"Hello\n";
 	int fd2 = open(fifo2,O_RDONLY);
 	cout<<"Baby\n";
-	fd_set rfds[2];
+	fd_set rfds;
 	struct timeval tv ;
 	tv.tv_sec=2;
 	tv.tv_usec=10;
 	
 	//FD_ZERO(&rfds[0]);
 	//FD_ZERO(&rfds[1]);
-	FD_SET(fd1,&rfds[0]);
-	FD_SET(fd2,&rfds[1]);
+	FD_SET(fd1,&rfds);
+	FD_SET(fd2,&rfds);
 	while(1)
 	{
 		cout<<"inside While\n";
-		int retval = select(20,rfds,NULL,NULL,&tv);
+		FD_SET(fd1,&rfds);
+		FD_SET(fd2,&rfds);
+		int retval = select(20,&rfds,NULL,NULL,&tv);
 		if(retval==0)
 		{
 			cout<<"Timeout\n";
 			
 		}
-		if(FD_ISSET(fd1,&rfds[0]))
+		if(FD_ISSET(fd1,&rfds))
 		{
 			
 		    cout<<"Inside1"<<endl;
@@ -81,10 +83,11 @@ int main()
 				cout<<"Invalid Service\n";
 			}
 		}
-		if(FD_ISSET(fd1,&rfds[1]))
+		if(FD_ISSET(fd1,&rfds))
 		{
 		    cout<<"Inside2"<<endl;
-		    
+		    int c=fork();
+		    if(c==0)
 			execvp("./s4",NULL);
 			cout<<"after "<<endl;
 			

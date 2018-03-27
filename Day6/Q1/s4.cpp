@@ -14,7 +14,7 @@
 using namespace std;
 int main()
 {
-	char fifo3 = "/tmp/fifo3";
+	char *fifo3 = "/tmp/fifo3";
 	mkfifo(fifo3,0666);
 	while(1)
 	{
@@ -22,7 +22,7 @@ int main()
 		cout<<"Enter the Data to write\n";
 		cin>>buf;
 		int fd= open(fifo3,O_WRONLY);
-		write(fd,buf,strlen(buf);
+		write(fd,buf,strlen(buf));
 		close(fd);
 	}
 }

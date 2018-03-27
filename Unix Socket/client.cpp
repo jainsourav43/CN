@@ -152,7 +152,7 @@ void getPassfd()
 	   }
 	
 	
-     int rc;
+      int rc;
 	  msghdr child_msg;
 	  memset(&child_msg,   0, sizeof(child_msg));
 	  char cmsgbuf[CMSG_SPACE(sizeof(int))];
@@ -174,7 +174,7 @@ void getPassfd()
 	  }
 	  int pass_sd;
 	  memcpy(&sock, CMSG_DATA(cmsg), sizeof(sock));
-	 cout<<"Sock  = "<<sock<<endl;
+	  cout<<"Sock  = "<<sock<<endl;
      
 
 	  
@@ -298,6 +298,7 @@ int main()
       {
       	kill(getpid(),SIGUSR1);
       }
+      
       while(1)
       {
       cout<<"I am in while\n";

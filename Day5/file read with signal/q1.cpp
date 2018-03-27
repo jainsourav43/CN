@@ -17,7 +17,7 @@ void runnerread1(int sig)
 	{
 		return;
 	}
-			cout<<"sSTrlen= "<<strlen(buffer)<<endl;
+			cout<<"strlen= "<<strlen(buffer)<<endl;
 
 	while(*buffer!='\n' )
 	{
