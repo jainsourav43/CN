@@ -15,7 +15,7 @@ int main()
 		ACE_INET_Addr server("127.0.0.1:8888"),client;
 		ACE_SOCK_Acceptor client_responder(server);
 		ACE_SOCK_Stream client_stream;
-		ACE_Time_Value timeout(50);
+		ACE_Time_Value timeout(5);
 		while(1)
 		{
 			if (-1 == client_responder.accept(client_stream, &client, &timeout)) 
