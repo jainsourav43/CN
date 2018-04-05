@@ -75,7 +75,7 @@ int main (void)
      
     //Data part
     data = datagram + sizeof(struct iphdr) + sizeof(struct tcphdr);
-    strcpy(data , "Vaibhav Loves Thota ");
+    strcpy(data , "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
      
     //some address resolution
     strcpy(source_ip , "1.2.3.40");

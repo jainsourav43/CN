@@ -46,6 +46,7 @@ int main()
 		struct icmphdr pckt;
 		struct sockaddr_in addr;
 		socklen_t len=sizeof (addr);
+		dprintf(1,"%s ","Blocked on Recieve\n");
 		recvfrom(rsfd, &pckt, sizeof(struct icmphdr), 0, (struct sockaddr*)&addr, &len);
 		dprintf(1,"ID= %d\n ",pckt.un.echo.id);
 		dprintf(1," Before one Ip = %s\n",inet_ntoa(addr.sin_addr));

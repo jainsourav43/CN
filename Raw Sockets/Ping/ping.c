@@ -51,8 +51,6 @@ int main(int argc,char* argv[])
 		while(1)
 		{
 			cnt++;
-			if(cnt==64)
-				break;
 			struct icmphdr pckt,rpckt;
 			socklen_t len=sizeof (addr);
 			pckt.type = ICMP_ECHO;
