@@ -47,8 +47,6 @@ int main()
 
 	    char *ip  = inet_ntoa(addrport.sin_addr);
 		cout<<"ip = "<<ip<<endl; 
-		//dup2(nsfd,0);
-	//	shutdown(nsfd,SHUT_RDWR);
 	    cout<<"nsfd= "<<nsfd<<endl;
 		int c=fork();
 		dup2(nsfd,fd2);

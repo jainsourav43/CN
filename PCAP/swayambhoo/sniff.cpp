@@ -23,10 +23,12 @@
 #include <netinet/in.h>       // IPPROTO_RAW, INET_ADDRSTRLEN
 #include <netinet/ip.h>       // IP_MAXPACKET (which is 65535)
 #include <net/if.h>
-
+#include<iostream>
+#include<bits/stdc++.h>
 #include <linux/if_packet.h>
 #include <net/ethernet.h>
 
+using namespace std;
 /* default snap length (maximum bytes per packet to capture) */
 #define SNAP_LEN 1518
 
@@ -61,7 +63,9 @@ struct sniff_ip {
 };
   uint8_t temptarget_ip[4];
 
-char filter_exp[] = "src port 9000";		/* filter expression [3] */
+char filter_exp[] = "src port 9001 || src port 9000";		/* filter expression [3] ----------------------*/
+
+struct sockaddr_in serv_addr;
 struct arp_hdr {
   uint16_t htype;
   uint16_t ptype;
@@ -118,7 +122,8 @@ print_app_banner(void);
 void
 print_app_usage(void);
 // Function prototypes
-
+char *allocate_strmem (int);
+uint8_t *allocate_ustrmem (int);
 
 
 /*
@@ -143,7 +148,8 @@ return;
 /*
  * print help text
  */
-void print_app_usage(void)
+void
+print_app_usage(void)
 {
 
 	printf("Usage: %s [interface]\n", APP_NAME);
@@ -155,12 +161,16 @@ void print_app_usage(void)
 return;
 }
 
+
+int issfd;
+
 /*
  * print data in rows of 16 bytes: offset   hex   ascii
  *
  * 00000   47 45 54 20 2f 20 48 54  54 50 2f 31 2e 31 0d 0a   GET / HTTP/
  */
-void print_hex_ascii_line(const u_char *payload, int len, int offset)
+void
+print_hex_ascii_line(const u_char *payload, int len, int offset)
 {
 
 	int i;
@@ -255,7 +265,8 @@ return;
 /*
  * dissect/print packet
  */
-void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
+void
+got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
 {
 
 	static int count = 1;                   /* packet counter */
@@ -327,6 +338,7 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 		
 		struct ifreq s;
 		char *interface, *target, *src_ip;
+
 		src_mac = (uint8_t*)malloc(6*sizeof(uint8_t));
 		dst_mac = (uint8_t*)malloc(sizeof(uint8_t)*(6));
 		ether_frame = (uint8_t*)malloc(sizeof(uint8_t)*(IP_MAXPACKET));
@@ -335,13 +347,11 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 		  
 		  interface = (char*)malloc(40);
 		  
-	
-		  
 		  
 		  
 		int fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
-		strcpy (interface, "lo");
-		strcpy(s.ifr_name, "lo");
+		strcpy (interface, "enp7s0");
+		strcpy(s.ifr_name, "enp7s0");
 		if (0 == ioctl(fd, SIOCGIFHWADDR, &s)) 
 		{
 			int i;
@@ -514,8 +524,21 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 			return;
 		}
 	
-		printf("   Src port: %d\n", ntohs(tcp->th_sport));
-		printf("   Dst port: %d\n", ntohs(tcp->th_dport));
+		printf(" Src port: %d\n", ntohs(tcp->th_sport));
+		printf(" Dst port: %d\n", ntohs(tcp->th_dport));
+		string str;
+		if(ntohs(tcp->th_sport)<20000)
+		 str =to_string(ntohs(tcp->th_sport));
+		else
+		 str =to_string(ntohs(tcp->th_dport));
+		
+		cout<<sendto(issfd,str.c_str(),strlen(str.c_str())+1,0,(struct sockaddr*)&serv_addr,sizeof(serv_addr))<<endl;
+		perror("sendto");
+		
+		cout<<"Port Sent  to ISS = "<<str.c_str()<<endl;
+		
+		
+		
 	
 		/* define/compute tcp payload (segment) offset */
 		payload = (u_char *)(packet + SIZE_ETHERNET + size_ip + size_tcp);
@@ -614,6 +637,26 @@ int main(int argc, char **argv)
 	}
 
 	/* now we can set our callback function */
+	
+
+
+	int port_no=8080;
+
+	bzero(&serv_addr,sizeof(serv_addr));
+
+	if((issfd = socket(AF_INET , SOCK_DGRAM , IPPROTO_UDP))==-1)
+	perror("\n socket");
+	else printf("\n socket created successfully\n");
+
+	serv_addr.sin_family = AF_INET;
+	serv_addr.sin_port = htons(port_no);
+	serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+//	connect(issfd , (struct sockaddr *)&serv_addr , sizeof(serv_addr));
+	//perror("connect");
+
+	
+
+	
 	pcap_loop(handle, num_packets, got_packet, NULL);
 
 	/* cleanup */

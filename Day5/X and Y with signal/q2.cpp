@@ -55,9 +55,8 @@ int main(int argc, char  *argv[])
     keyY = 5679;
     shmid1 = shmget(keyX, SHMSZ, IPC_CREAT | 0666);
     shmid2 = shmget(keyY, SHMSZ, IPC_CREAT | 0666);
-    shmX =(char*) shmat(shmid1, NULL, 0);
+    shmX = (char*)shmat(shmid1, NULL, 0);
 	shmY = (char*)shmat(shmid2, NULL, 0);
-	//cout<<"shmid's "<<shmid1<<" "<<shmid2<<endl;
 	c = fork();
 	signal(SIGUSR1,runnerread1);
 	s[0]='1';
@@ -69,7 +68,6 @@ int main(int argc, char  *argv[])
 	}
 	else
 	{
-	//	cout<<"Child\n";
 		execvp("./q22",NULL);
 	}
 	

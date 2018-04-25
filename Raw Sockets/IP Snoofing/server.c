@@ -5,7 +5,7 @@
 #include<stdlib.h> //for exit(0);
 #include<errno.h> //For errno - the error number
 #include<netinet/tcp.h>   //Provides declarations for tcp header
-#include<netinet/ip.h>    //Provides declarations for ip header
+#include<netinet/ip.h>    
 #include <arpa/inet.h>
  
 /* 

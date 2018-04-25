@@ -15,11 +15,8 @@ int main(int argc, char const *argv[])
 	int fd = open(newfifo,O_RDONLY);
 	while(1)
 	{
-		
 		read(fd,s1,strlen(s1));
 		cout<<s1;
-		//close(fd);
-
 	}
 	return 0;
 }

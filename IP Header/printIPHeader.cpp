@@ -17,5 +17,5 @@
 #include <sys/un.h>
 int main()
 {
-	int rsfd =socket(AF_INET,,IPPROTO_RAW)
+	int rsfd =socket(AF_INET,SOCK_RAW,IPPROTO_RAW)
 }

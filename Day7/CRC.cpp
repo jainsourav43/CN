@@ -108,10 +108,9 @@ int main()
 			if(i<input.length())
 			current =tempstr+input[i];	
 		}
-		//cout<<tempstr<<endl;
-		//cout<<i<<endl;
+
 	}
-//	cout<<tempstr<<endl;
+
 	ans =ans+tempstr;
 	cout<<"ans   = "<<ans<<endl;
 		
